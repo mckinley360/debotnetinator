@@ -5,8 +5,13 @@ window.onload = function () {
 		if (params.has("url")) {
 			document.getElementById("textbox").value = decodeURIComponent(params.get("url"));
 		}
+		if (params.has("mode")) {
+			try { document.getElementById(params.get("mode")).checked = true; }
+			catch (e) { return; }
+		}
 	}
 };
+
 var ebayID = {}, amazonID = {}, knownLinkTest = {}, decoded = {}, mode = {}, garbage = {};
 function process() {
 	try {
