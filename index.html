@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 	<head>
 		<title>Link Debotnet-inator</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -39,53 +39,49 @@ Welcome to McKinley's
  _____  ______ ____   ____ _______ _   _ ______ _______   _____ _   _       _______ ____  _____      _  __________=__
 |  __ \|  ____|  _ \ / __ \__   __| \ | |  ____|__   __| |_   _| \ | |   /\|__   __/ __ \|  __ \      \\@([____]_____()
 | |  | | |__  | |_) | |  | | | |  |  \| | |__     | | ____ | | |  \| |  /  \  | | | |  | | |__) |    _/\|-[____]
-| |  | |  __| |  _ <| |  | | | |  | . ` |  __|    | ||____|| | | . ` | / /\ \ | | | |  | |  _  /    /     /(( )
+| |  | |  __| |  _ &lt;| |  | | | |  | . ` |  __|    | ||____|| | | . ` | / /\ \ | | | |  | |  _  /    /     /(( )
 | |__| | |____| |_) | |__| | | |  | |\  | |____   | |     _| |_| |\  |/ ____ \| | | |__| | | \ \   /____|'----'
 |_____/|______|____/ \____/  |_|  |_| \_|______|  |_|    |_____|_| \_/_/    \_\_|  \____/|_|  \_\  \____/
 
                                  === Tools to strip your links of unwanted tracking ===
 </pre>
-		<div>
+		<form action="#">
 			<label for="textbox">Input:</label>
 			<input type="text" id="textbox" size="100">
 			<button type="button" onclick="process()">Submit</button>
 			<br>
-			<b>Mode:</b>
+			Mode:
+			<input type="radio" id="smart" checked="checked" name="mode">
+			<label for="smart">Smart</label>
+			<input type="radio" id="trim" name="mode">
+			<label for="trim">Trim</label>
+			<input type="radio" id="hardtrim" name="mode">
+			<label for="hardtrim">Hard Trim</label>
+			<input type="radio" id="extract" name="mode">
+			<label for="extract">Extract</label>
+			<input type="radio" id="expand" name="mode">
+			<label for="expand">Expand</label>
+			<input type="radio" id="deamp" name="mode">
+			<label for="deamp">AMP Remover</label>
+			<input type="radio" id="uridecodeonly" name="mode">
+			<label for="uridecodeonly">URI Decode Only</label>
+			<input type="radio" id="base64decode" name="mode">
+			<label for="base64decode">Base64 Decode</label>
 			<br>
-			<span>
-				<input type="radio" id="smart" checked="checked" name="mode">
-				<label for="smart">Smart</label>
-				<input type="radio" id="trim" name="mode">
-				<label for="trim">Trim</label>
-				<input type="radio" id="hardtrim" name="mode">
-				<label for="hardtrim">Hard Trim</label>
-				<input type="radio" id="extract" name="mode">
-				<label for="extract">Extract</label>
-				<input type="radio" id="expand" name="mode">
-				<label for="expand">Expand</label>
-				<input type="radio" id="deamp" name="mode">
-				<label for="deamp">AMP Remover</label>
-				<input type="radio" id="uridecodeonly" name="mode">
-				<label for="uridecodeonly">URI Decode Only</label>
-				<input type="radio" id="base64decode" name="mode">
-				<label for="base64decode">Base64 Decode</label>
-			</span>
-			<br>
-			<span>
-				<input type="checkbox" id="uridecode" checked="checked">
-				<label for="uridecode">URI Decode (Before mode action)</label>
-			</span>
-			<br>
-			<ul>
-				<li>Smart: Compares link against pre-optimized list of common offenders and acts accordingly.</li>
-				<li>Trim: Tries to find unnecessary tracking at the end of the link, and removes it.</li>
-				<li>Hard Trim: Same as Trim, but removes the first URL argument as well, which is necessary for many webpages to work properly.</li>
-				<li>Extract: Tries to find a different link embedded in the submitted text. Good for rooting out redirect traps.</li>
-				<li>Expand: Expands shortened URL, sends you to <a href="https://urlex.org/">urlex.org</a>.</li>
-				<li>AMP Remover: Removes /amp/ directory from link</li>
-				<li>URI Decode Only: Only URI decodes link, good for manual debotnetting.</li>
-				<li>Base64 Decode: Base64 Decodes input, will NOT work unless the entire input is encoded with Base64. Good for manual debotnetting.</li>
-			</ul>
+			<input type="checkbox" id="uridecode" checked="checked">
+			<label for="uridecode">URI Decode (Before mode action)</label>
+		</form>
+		<ul>
+			<li>Smart: Compares link against pre-optimized list of common offenders and acts accordingly.</li>
+			<li>Trim: Tries to find unnecessary tracking at the end of the link, and removes it.</li>
+			<li>Hard Trim: Same as Trim, but removes the first URL argument as well, which is necessary for many webpages to work properly.</li>
+			<li>Extract: Tries to find a different link embedded in the submitted text. Good for rooting out redirect traps.</li>
+			<li>Expand: Expands shortened URL, sends you to <a href="https://urlex.org/">urlex.org</a>.</li>
+			<li>AMP Remover: Removes /amp/ directory from link</li>
+			<li>URI Decode Only: Only URI decodes link, good for manual debotnetting.</li>
+			<li>Base64 Decode: Base64 Decodes input, will NOT work unless the entire input is encoded with Base64. Good for manual debotnetting.</li>
+		</ul>
+		<form action="#">
 			<label for="output">Output:</label>
 			<input type="text" id="output" size="100" readonly="readonly">
 			<br>
@@ -93,26 +89,26 @@ Welcome to McKinley's
 			<button onclick="document.getElementById('textbox').value = document.getElementById('output').value;">Further Debotnet Link</button>
 			<button onclick="document.getElementById('output').select(); document.execCommand('copy');">Copy Link</button>
 			<button onclick="document.getElementById('scratchpad').value = document.getElementById('output').value;">Send Output to Scratchpad</button>
-			<h2>Smart Mode Compatible Domains</h2>
-			<p>List is in alphabetical order by domain name, excluding "www." if applicable</p>
-			<ul>
-				<li>www.amazon.com (or any other TLD) [Item links only]</li>
-				<li>www.ebay.com (or any other TLD) [Item links only]</li>
-				<li>www.google.com (or any other TLD) [/url redirects only]</li>
-				<li>youtu.be</li>
-			</ul>
-			<label for="scratchpad">Scratchpad</label>
-			<br>
-			<textarea cols="100" rows="10" id="scratchpad"></textarea>
-			<br>
-			<button onclick="document.getElementById('textbox').value = document.getElementById('scratchpad').value.match(/.+/);">Further debotnet top line</button>
-			<p>
-				<a href="http://validator.w3.org/"><img src="/valid-html401-blue.png" alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
-				<a href="https://www.gnu.org/software/librejs/"><img src="/librejs.png" alt="LibreJS Compatible" height="31" width="88"></a>
-			</p>
-			<p>Link Debotnet-inator made by <a href="https://mckinley.cc/">mckinley</a>.</p>
-			<p>This page is <a href="https://www.gnu.org/software/librejs/">LibreJS</a> compatible, and all JavaScript on this page is released under the GNU GPL v3 or later. <a href="/debotnet.js">Un-minified javascript (source)</a> <a href="https://github.com/mckinley360/debotnetinator">GitHub Repo</a></p>
-			<p>If you find a bug, or just want to tell me my JavaScript is bad, I am (regrettably) on Discord at mckinley pound sign 0420.</p>
-		</div>
+		</form>
+		<h2>Smart Mode Compatible Domains</h2>
+		<p>List is in alphabetical order by domain name, excluding "www." if applicable</p>
+		<ul>
+			<li>www.amazon.com (or any other TLD) [Item links only]</li>
+			<li>www.ebay.com (or any other TLD) [Item links only]</li>
+			<li>www.google.com (or any other TLD) [/url redirects only]</li>
+			<li>youtu.be</li>
+		</ul>
+		<label for="scratchpad">Scratchpad</label>
+		<br>
+		<textarea cols="100" rows="10" id="scratchpad"></textarea>
+		<br>
+		<button onclick="document.getElementById('textbox').value = document.getElementById('scratchpad').value.match(/.+/);">Further debotnet top line</button>
+		<p>
+			<a href="http://validator.w3.org/"><img src="/valid-html401-blue.png" alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
+			<a href="https://www.gnu.org/software/librejs/"><img src="/librejs.png" alt="LibreJS Compatible" height="31" width="88"></a>
+		</p>
+		<p>Link Debotnet-inator made by <a href="https://mckinley.cc/">mckinley</a>.</p>
+		<p>This page is <a href="https://www.gnu.org/software/librejs/">LibreJS</a> compatible, and all JavaScript on this page is released under the GNU GPL v3 or later. <a href="/debotnet.js">Un-minified javascript (source)</a> <a href="https://github.com/mckinley360/debotnetinator">GitHub Repo</a></p>
+		<p>If you find a bug, or just want to tell me my JavaScript is bad, I am (regrettably) on Discord at mckinley pound sign 0420.</p>
 	</body>
 </html>
