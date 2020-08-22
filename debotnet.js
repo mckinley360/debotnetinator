@@ -12,7 +12,7 @@ window.onload = function () {
 	}
 };
 
-var ebayID = {}, amazonID = {}, knownLinkTest = {}, decoded = {}, mode = {}, garbage = {};
+var id = {}, knownLinkTest = {}, decoded = {}, mode = {}, garbage = {};
 function process() {
 	try {
 		var link = document.getElementById("textbox").value;
@@ -33,12 +33,12 @@ function process() {
 			var tld = link.slice(knownLinkTest.length).match(/^.+?(?=\/)/)[0];
 			switch (knownLinkTest) {
 			case "https://www.ebay.":
-				try { ebayID = link.match(/\d{12}/)[0]; }
+				try { id = link.match(/\d{12}/)[0]; }
 				catch (e) { throw("Could not find item ID. Is this link for an eBay item?"); }
 				output(knownLinkTest + tld + "/itm/" + ebayID);
 				break;
 			case "https://www.amazon.":
-				try { amazonID = link.match(/\/(?:(?:dp)|(?:product))\/\S{10}/)[0].slice(-10); }
+				try { id = link.match(/\/(?:(?:dp)|(?:product))\/\S{10}/)[0].slice(-10); }
 				catch (e) { throw("Could not find item ID. Is this link for an Amazon item?"); }
 				output(knownLinkTest + tld + "/dp/" + amazonID);
 				break;
@@ -105,10 +105,8 @@ function hardTrim(link) {
 
 function output(newLink) {
 	document.getElementById("output").value = newLink;
-	document.getElementById("outputLink").href = newLink;
 }
 
 function error(message) {
 	document.getElementById("output").value = message;
-	document.getElementById("outputLink").href = "#";
 }
