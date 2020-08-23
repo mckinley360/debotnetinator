@@ -13,6 +13,7 @@ window.onload = function () {
 };
 
 var id = {}, knownLinkTest = {}, decoded = {}, mode = {}, garbage = {};
+var utmSource = ['share', 'google', 'blog', 'Twitter', 'facebook', ], utmMedium = ['organic', 'cpc', 'email', 'social', 'banner', 'cpa', 'android_app', 'ios_app'], utmCampaign = ['events', 'share', 'Google'];
 function process() {
 	try {
 		var link = document.getElementById("textbox").value;
@@ -35,12 +36,12 @@ function process() {
 			case "https://www.ebay.":
 				try { id = link.match(/\d{12}/)[0]; }
 				catch (e) { throw("Could not find item ID. Is this link for an eBay item?"); }
-				output(knownLinkTest + tld + "/itm/" + ebayID);
+				output(knownLinkTest + tld + "/itm/" + id);
 				break;
 			case "https://www.amazon.":
 				try { id = link.match(/\/(?:(?:dp)|(?:product))\/\S{10}/)[0].slice(-10); }
 				catch (e) { throw("Could not find item ID. Is this link for an Amazon item?"); }
-				output(knownLinkTest + tld + "/dp/" + amazonID);
+				output(knownLinkTest + tld + "/dp/" + id);
 				break;
 			case "https://youtu.":
 				output("https://www.youtube.com/watch?v=" + hardTrim(link).slice(-11));
@@ -104,9 +105,16 @@ function hardTrim(link) {
 }
 
 function output(newLink) {
+	if (document.getElementById("fakeutm").checked) {
+		newLink = newLink + "?utm_source=" + sample(utmSource) + "&utm_medium=" + sample(utmMedium) + "&utm_campaign=" + sample(utmCampaign);
+	}
 	document.getElementById("output").value = newLink;
 }
 
 function error(message) {
 	document.getElementById("output").value = message;
+}
+
+function sample(array) {
+	return array[Math.floor(Math.random() * array.length)];
 }
