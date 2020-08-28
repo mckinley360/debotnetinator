@@ -1,5 +1,6 @@
 /*jshint esversion: 10 */
 window.onload = function () {
+	document.getElementById("jswarn").remove();
 	if ('URLSearchParams' in window) {
 		var params = new URLSearchParams(window.location.search);
 		if (params.has("url")) {
