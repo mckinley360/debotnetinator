@@ -45,8 +45,8 @@ Welcome to McKinley's
 
                       === Tools to strip your links of unwanted tracking (<a href="/thepoint.html">What's the point?</a>) ===
 </pre>
-		<p id="jswarn" style="color:red;">Warning: It seems you have JavaScript turned off, or it is not supported in your browser. This tool requires JavaScript to run, but it is free software and you can read the full, un-minified script <a href="/debotnet.js">here</a> or <a href="https://github.com/mckinley360/debotnetinator/blob/master/debotnet.js">on the GitHub repository</a>.</p>
-		<form action="#">
+		<p id="jswarn" style="color:red;">Warning: It seems you have JavaScript turned off, or it is not supported in your browser. This tool will not work without JavaScript enabled, however all JavaScript on this page is free software (GPL) and you can read the full, un-minified script <a href="/debotnet.js">here</a> or <a href="https://github.com/mckinley360/debotnetinator/blob/master/debotnet.js">on the GitHub repository</a>.</p>
+		<form>
 			<label for="textbox">Input:</label>
 			<input type="text" id="textbox" size="100">
 			<button type="button" onclick="process()">Submit</button>
@@ -76,7 +76,7 @@ Welcome to McKinley's
 			<label for="fakeutm">Append fake UTM parameters</label>
 		</form>
 		<br>
-		<form action="#">
+		<form>
 			<label for="output">Output:</label>
 			<input type="text" id="output" size="100" readonly="readonly">
 			<br>
@@ -86,7 +86,7 @@ Welcome to McKinley's
 			<button onclick="document.getElementById('scratchpad').value = document.getElementById('output').value;">Send Output to Scratchpad</button>
 		</form>
 		<br>
-		<form action="#">
+		<form>
 			<label for="scratchpad">Scratchpad</label>
 			<br>
 			<textarea cols="100" rows="10" id="scratchpad"></textarea>

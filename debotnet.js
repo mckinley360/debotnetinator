@@ -15,6 +15,7 @@ window.onload = function () {
 
 var id = {}, knownLinkTest = {}, decoded = {}, mode = {}, garbage = {};
 var utmSource = ['share', 'google', 'blog', 'Twitter', 'facebook', ], utmMedium = ['organic', 'cpc', 'email', 'social', 'banner', 'cpa', 'android_app', 'ios_app'], utmCampaign = ['events', 'share', 'Google'];
+
 function process() {
 	try {
 		var link = document.getElementById("textbox").value;
