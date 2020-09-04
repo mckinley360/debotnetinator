@@ -49,7 +49,12 @@ function process() {
 				output("https://www.youtube.com/watch?v=" + hardTrim(link).slice(-11));
 				break;
 			case "https://www.google.":
-				output(extract(decodeURIComponent(link)));
+				if (link.match(/\/amp\/s\//)) {
+					garbage = link.match(/https:\/\/www\.google\.[\w\.]+\/amp\/s\//)[0];
+					output(deAmp(decodeURIComponent("http://" + link.slice(garbage.length))));
+				} else if (link.match(/\/url/)) {
+					output(extract(decodeURIComponent(link)));
+				} else { error("Smart Mode supports /amp and /url directories for Google only."); }
 				break;
 			}
 		break;
@@ -73,7 +78,7 @@ function process() {
 			break;
 
 		case "deamp":
-			output(link.replace("/amp/","/"));
+			output(deAmp(link));
 			break;
 
 		case "uridecodeonly":
@@ -104,6 +109,10 @@ function hardTrim(link) {
 	try { garbage = link.match(/\?\S+(&\S+)*$/g).join(""); }
 	catch (e) { return link; }
 	return link.slice(0, link.length - garbage.length);
+}
+
+function deAmp(link) {
+	return link.replace(/\/(platform\/)?amp\/?/,"/");
 }
 
 function output(newLink) {

@@ -30,7 +30,7 @@
 			for the JavaScript code in this page.
 			*/
 		</script> 
-		<script type="text/javascript">window.onload=function(){document.getElementById("jswarn").remove();if("URLSearchParams"in window){var t=new URLSearchParams(window.location.search);if(t.has("url")){document.getElementById("textbox").value=decodeURIComponent(t.get("url"))}if(t.has("mode")){try{document.getElementById(t.get("mode")).checked=true}catch(e){return}}}};var u={},n={},i={},d={},o={};var e=["share","google","blog","Twitter","facebook"],a=["organic","cpc","email","social","banner","cpa","android_app","ios_app"],r=["events","share","Google"];function process(){try{var t=document.getElementById("textbox").value;var e=document.getElementsByName("mode");for(var o=0;o<e.length;o++){if(e[o].checked){d=e[o].id;break}}if(document.getElementById("uridecode").checked){t=decodeURIComponent(t)}switch(d){case"smart":try{n=t.match(/https?:\/\/(?:(?:www\.ebay)|(?:www\.amazon)|(?:youtu)|(?:www\.google))\./)[0]}catch(c){throw"This domain does not have any special optimizations available."}var a=t.slice(n.length).match(/^.+?(?=\/)/)[0];switch(n){case"https://www.ebay.":try{u=t.match(/\d{12}/)[0]}catch(c){throw"Could not find item ID. Is this link for an eBay item?"}output(n+a+"/itm/"+u);break;case"https://www.amazon.":try{u=t.match(/\/(?:(?:dp)|(?:product))\/\S{10}/)[0].slice(-10)}catch(c){throw"Could not find item ID. Is this link for an Amazon item?"}output(n+a+"/dp/"+u);break;case"https://youtu.":output("https://www.youtube.com/watch?v="+hardTrim(t).slice(-11));break;case"https://www.google.":output(extract(decodeURIComponent(t)));break}break;case"trim":output(trim(t));break;case"hardtrim":output(hardTrim(t));break;case"extract":output(extract(t));break;case"expand":var r="https://urlex.org/"+t;window.open(r,"_blank").focus();output(r);break;case"deamp":output(t.replace("/amp/","/"));break;case"uridecodeonly":output(decodeURIComponent(t));break;case"base64decode":try{i=atob(t)}catch(c){throw"Could not Base64 decode input."}output(i)}}catch(c){error("Error: "+c)}}function extract(t){try{o=t.match(/https?:\/\/.+(?=https?)/)[0]}catch(e){throw"Could not extract link"}return trim(t.slice(o.length))}function trim(t){try{o=t.match(/(&\S+)+$/g).join("")}catch(e){return t}return t.slice(0,t.length-o.length)}function hardTrim(t){try{o=t.match(/\?\S+(&\S+)*$/g).join("")}catch(e){return t}return t.slice(0,t.length-o.length)}function output(t){if(document.getElementById("fakeutm").checked){t=t+"?utm_source="+sample(e)+"&utm_medium="+sample(a)+"&utm_campaign="+sample(r)}document.getElementById("output").value=t}function error(t){document.getElementById("output").value=t}function sample(t){return t[Math.floor(Math.random()*t.length)]}</script>
+		<script type="text/javascript">window.onload=function(){document.getElementById("jswarn").remove();if("URLSearchParams"in window){var t=new URLSearchParams(window.location.search);if(t.has("url")){document.getElementById("textbox").value=decodeURIComponent(t.get("url"))}if(t.has("mode")){try{document.getElementById(t.get("mode")).checked=true}catch(e){return}}}};var n={},c={},i={},d={},m={};var e=["share","google","blog","Twitter","facebook"],o=["organic","cpc","email","social","banner","cpa","android_app","ios_app"],r=["events","share","Google"];function process(){try{var t=document.getElementById("textbox").value;var e=document.getElementsByName("mode");for(var o=0;o<e.length;o++){if(e[o].checked){d=e[o].id;break}}if(document.getElementById("uridecode").checked){t=decodeURIComponent(t)}switch(d){case"smart":try{c=t.match(/https?:\/\/(?:(?:www\.ebay)|(?:www\.amazon)|(?:youtu)|(?:www\.google))\./)[0]}catch(u){throw"This domain does not have any special optimizations available."}var r=t.slice(c.length).match(/^.+?(?=\/)/)[0];switch(c){case"https://www.ebay.":try{n=t.match(/\d{12}/)[0]}catch(u){throw"Could not find item ID. Is this link for an eBay item?"}output(c+r+"/itm/"+n);break;case"https://www.amazon.":try{n=t.match(/\/(?:(?:dp)|(?:product))\/\S{10}/)[0].slice(-10)}catch(u){throw"Could not find item ID. Is this link for an Amazon item?"}output(c+r+"/dp/"+n);break;case"https://youtu.":output("https://www.youtube.com/watch?v="+hardTrim(t).slice(-11));break;case"https://www.google.":if(t.match(/\/amp\/s\//)){m=t.match(/https:\/\/www\.google\.[\w\.]+\/amp\/s\//)[0];output(deAmp(decodeURIComponent("http://"+t.slice(m.length))))}else if(t.match(/\/url/)){output(extract(decodeURIComponent(t)))}else{error("Smart Mode supports /amp and /url directories for Google only.")}break}break;case"trim":output(trim(t));break;case"hardtrim":output(hardTrim(t));break;case"extract":output(extract(t));break;case"expand":var a="https://urlex.org/"+t;window.open(a,"_blank").focus();output(a);break;case"deamp":output(deAmp(t));break;case"uridecodeonly":output(decodeURIComponent(t));break;case"base64decode":try{i=atob(t)}catch(u){throw"Could not Base64 decode input."}output(i)}}catch(u){error("Error: "+u)}}function extract(t){try{m=t.match(/https?:\/\/.+(?=https?)/)[0]}catch(e){throw"Could not extract link"}return trim(t.slice(m.length))}function trim(t){try{m=t.match(/(&\S+)+$/g).join("")}catch(e){return t}return t.slice(0,t.length-m.length)}function hardTrim(t){try{m=t.match(/\?\S+(&\S+)*$/g).join("")}catch(e){return t}return t.slice(0,t.length-m.length)}function deAmp(t){return t.replace(/\/(platform\/)?amp\/?/,"/")}function output(t){if(document.getElementById("fakeutm").checked){t=t+"?utm_source="+sample(e)+"&utm_medium="+sample(o)+"&utm_campaign="+sample(r)}document.getElementById("output").value=t}function error(t){document.getElementById("output").value=t}function sample(t){return t[Math.floor(Math.random()*t.length)]}</script>
 		<style type="text/css">body{font-family:monospace;max-width:1000px;}</style>
 	</head>
 	<body>
@@ -46,54 +46,48 @@ Welcome to McKinley's
                       === Tools to strip your links of unwanted tracking (<a href="/thepoint.html">What's the point?</a>) ===
 </pre>
 		<p id="jswarn" style="color:red;">Warning: It seems you have JavaScript turned off, or it is not supported in your browser. This tool will not work without JavaScript enabled, however all JavaScript on this page is free software (GPL) and you can read the full, un-minified script <a href="/debotnet.js">here</a> or <a href="https://github.com/mckinley360/debotnetinator/blob/master/debotnet.js">on the GitHub repository</a>.</p>
-		<form>
-			<label for="textbox">Input:</label>
-			<input type="text" id="textbox" size="100">
-			<button type="button" onclick="process()">Submit</button>
-			<br>
-			Mode:
-			<input type="radio" id="smart" checked="checked" name="mode">
-			<label for="smart">Smart</label>
-			<input type="radio" id="trim" name="mode">
-			<label for="trim">Trim</label>
-			<input type="radio" id="hardtrim" name="mode">
-			<label for="hardtrim">Hard Trim</label>
-			<input type="radio" id="extract" name="mode">
-			<label for="extract">Extract</label>
-			<input type="radio" id="expand" name="mode">
-			<label for="expand">Expand</label>
-			<input type="radio" id="deamp" name="mode">
-			<label for="deamp">AMP Remover</label>
-			<input type="radio" id="uridecodeonly" name="mode">
-			<label for="uridecodeonly">URI Decode Only</label>
-			<input type="radio" id="base64decode" name="mode">
-			<label for="base64decode">Base64 Decode</label>
-			<br>
-			Options:
-			<input type="checkbox" id="uridecode" checked="checked">
-			<label for="uridecode">URI Decode (Before mode action)</label>
-			<input type="checkbox" id="fakeutm">
-			<label for="fakeutm">Append fake UTM parameters</label>
-		</form>
+		<label for="textbox">Input:</label>
+		<input type="text" id="textbox" size="100">
+		<button type="button" onclick="process()">Submit</button>
 		<br>
-		<form>
-			<label for="output">Output:</label>
-			<input type="text" id="output" size="100" readonly="readonly">
-			<br>
-			<button onclick="window.open(document.getElementById('output').value, '_blank').focus();">Test</button>
-			<button onclick="document.getElementById('textbox').value = document.getElementById('output').value;">Further Debotnet Link</button>
-			<button onclick="document.getElementById('output').select(); document.execCommand('copy');">Copy Link</button>
-			<button onclick="document.getElementById('scratchpad').value = document.getElementById('output').value;">Send Output to Scratchpad</button>
-		</form>
+		Mode:
+		<input type="radio" id="smart" checked="checked" name="mode">
+		<label for="smart">Smart</label>
+		<input type="radio" id="trim" name="mode">
+		<label for="trim">Trim</label>
+		<input type="radio" id="hardtrim" name="mode">
+		<label for="hardtrim">Hard Trim</label>
+		<input type="radio" id="extract" name="mode">
+		<label for="extract">Extract</label>
+		<input type="radio" id="expand" name="mode">
+		<label for="expand">Expand</label>
+		<input type="radio" id="deamp" name="mode">
+		<label for="deamp">AMP Remover</label>
+		<input type="radio" id="uridecodeonly" name="mode">
+		<label for="uridecodeonly">URI Decode Only</label>
+		<input type="radio" id="base64decode" name="mode">
+		<label for="base64decode">Base64 Decode</label>
 		<br>
-		<form>
-			<label for="scratchpad">Scratchpad</label>
-			<br>
-			<textarea cols="100" rows="10" id="scratchpad"></textarea>
-			<br>
-			<button onclick="document.getElementById('textbox').value = document.getElementById('scratchpad').value.match(/.+/);">Further debotnet top line</button>
-			<button onclick="document.getElementById('scratchpad').value = '';">Clear</button>
-		</form>
+		Options:
+		<input type="checkbox" id="uridecode" checked="checked">
+		<label for="uridecode">URI Decode (Before mode action)</label>
+		<input type="checkbox" id="fakeutm">
+		<label for="fakeutm">Append fake UTM parameters</label>
+		<br>
+		<label for="output">Output:</label>
+		<input type="text" id="output" size="100" readonly="readonly">
+		<br>
+		<button onclick="window.open(document.getElementById('output').value, '_blank').focus();">Test</button>
+		<button onclick="document.getElementById('textbox').value = document.getElementById('output').value;">Further Debotnet Link</button>
+		<button onclick="document.getElementById('output').select(); document.execCommand('copy');">Copy Link</button>
+		<button onclick="document.getElementById('scratchpad').value = document.getElementById('output').value;">Send Output to Scratchpad</button>
+		<br>
+		<label for="scratchpad">Scratchpad</label>
+		<br>
+		<textarea cols="100" rows="10" id="scratchpad"></textarea>
+		<br>
+		<button onclick="document.getElementById('textbox').value = document.getElementById('scratchpad').value.match(/.+/);">Further debotnet top line</button>
+		<button onclick="document.getElementById('scratchpad').value = '';">Clear</button>
 		<h2>Definitions</h2>
 		<p>Modes:</p>
 		<ul>
@@ -102,7 +96,7 @@ Welcome to McKinley's
 			<li>Hard Trim: Same as Trim, but removes the first URL argument as well, which is necessary for many webpages to work properly.</li>
 			<li>Extract: Tries to find a different link embedded in the submitted text. Good for rooting out redirect traps.</li>
 			<li>Expand: Expands shortened URL, sends you to <a href="https://urlex.org/">urlex.org</a>.</li>
-			<li>AMP Remover: Removes /amp/ directory from link</li>
+			<li>AMP Remover: Removes /platform/amp/ or /amp/ directories from links to websites that use the technology embedded in their systems (like The Verge)</li>
 			<li>URI Decode Only: Only URI decodes link, good for manual debotnetting.</li>
 			<li>Base64 Decode: Base64 Decodes input, will NOT work unless the entire input is encoded with Base64. Good for manual debotnetting.</li>
 		</ul>
@@ -116,7 +110,7 @@ Welcome to McKinley's
 		<ul>
 			<li>www.amazon.com (or any other TLD) [Item links only]</li>
 			<li>www.ebay.com (or any other TLD) [Item links only]</li>
-			<li>www.google.com (or any other TLD) [/url redirects only]</li>
+			<li>www.google.com (or any other TLD) [/url redirects or /amp tracking only]</li>
 			<li>youtu.be</li>
 		</ul>
 		<p>
