@@ -17,11 +17,11 @@ var id = {}, knownLinkTest = {}, decoded = {}, mode = {}, garbage = {};
 var utmSource = ['share', 'google', 'blog', 'Twitter', 'facebook', ], utmMedium = ['organic', 'cpc', 'email', 'social', 'banner', 'cpa', 'android_app', 'ios_app'], utmCampaign = ['events', 'share', 'Google'];
 
 function htmltojs() {
-  var qargs = {
-    "uridecode":false,
-    "fakeutm":false
-  }
-  var link = document.getElementById("textbox").value;
+	var qargs = {
+		"uridecode":false,
+		"fakeutm":false
+	}
+	var link = document.getElementById("textbox").value;
 	var options = document.getElementsByName("mode");
 	for (var i = 0; i < options.length; i++) {
 		if (options[i].checked) {
@@ -29,17 +29,17 @@ function htmltojs() {
 			break;
 		}
 	}
-  var checks = Object.keys(qargs);
+	var checks = Object.keys(qargs);
 	for (var i = 0; i < checks.length; i++) {
-    qargs[checks[i]] = document.getElementById(checks[i]).checked
+		qargs[checks[i]] = document.getElementById(checks[i]).checked
 	}
-  process(link, mode, qargs)
+	process(link, mode, qargs)
 }
 
 function process(link, mode, qargs) {
 	try {
-    if (qargs["uridecode"]) {link = decodeURIComponent(link)}
-    switch (mode) {
+		if (qargs["uridecode"]) {link = decodeURIComponent(link)}
+		switch (mode) {
 		case "smart":
 			try { knownLinkTest = link.match(/https?:\/\/(?:(?:www\.ebay)|(?:www\.amazon)|(?:youtu)|(?:www\.google))\./)[0]; }
 			catch (e) { throw("This domain does not have any special optimizations available."); }
