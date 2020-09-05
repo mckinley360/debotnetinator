@@ -4,27 +4,27 @@ var id = {}, knownLinkTest = {}, decoded = {}, mode = {}, garbage = {};
 var utmSource = ['share', 'google', 'blog', 'Twitter', 'facebook', ], utmMedium = ['organic', 'cpc', 'email', 'social', 'banner', 'cpa', 'android_app', 'ios_app'], utmCampaign = ['events', 'share', 'Google'];
 
 function bookmarklettojs() {
-  var qargs = {
-    "uridecode":false,
-    "fakeutm":false
-  }
-  var link = prompt("enter link:");
-  var mode = prompt("mode (sm(art), tr(im), h(ard)tr(im), ext(ract), exp(and), (de)amp, uri(decodeonly), b(ase)64(decode))");
-  var modalconvert = {"sm":"smart","tr":"trim","htr":"hardtrim","ext":"extract","exp":"expand","amp":"deamp","uri":"uridecodeonly","b64":"base64decode"};
-  mode = modalconvert[mode];
-  var checks = Object.keys(qargs);
+	var qargs = {
+		"uridecode":false,
+		"fakeutm":false
+	};
+	var link = prompt("enter link:");
+	var mode = prompt("mode (sm(art), tr(im), h(ard)tr(im), ext(ract), exp(and), (de)amp, uri(decodeonly), b(ase)64(decode))");
+	var modalconvert = {"sm":"smart","tr":"trim","htr":"hardtrim","ext":"extract","exp":"expand","amp":"deamp","uri":"uridecodeonly","b64":"base64decode"};
+	mode = modalconvert[mode];
+	var checks = Object.keys(qargs);
 	for (var i = 0; i < checks.length; i++) {
-    qargs[checks[i]] = confirm(checks[i]);
+		qargs[checks[i]] = confirm(checks[i]);
 	}
-  process(link, mode, qargs);
+	process(link, mode, qargs);
 }
 
 function process(link, mode, qargs) {
 	try {
-    if (qargs["uridecode"]) {link = decodeURIComponent(link)}
-    switch (mode) {
+		if (qargs.uridecode) { link = decodeURIComponent(link); }
+		switch (mode) {
 		case "smart":
-      try { knownLinkTest = link.match(/https?:\/\/(?:(?:www\.ebay)|(?:www\.amazon)|(?:youtu)|(?:www\.google))\./)[0]; }
+			try { knownLinkTest = link.match(/https?:\/\/(?:(?:www\.ebay)|(?:www\.amazon)|(?:youtu)|(?:www\.google))\./)[0]; }
 			catch (e) { throw("This domain does not have any special optimizations available."); }
 			var tld = link.slice(knownLinkTest.length).match(/^.+?(?=\/)/)[0];
 			switch (knownLinkTest) {
@@ -109,18 +109,19 @@ function deAmp(link) {
 }
 
 function output(newLink, qargs) {
-	if (qargs["fakeutm"]) {
+	if (qargs.fakeutm) {
 		newLink = newLink + "?utm_source=" + sample(utmSource) + "&utm_medium=" + sample(utmMedium) + "&utm_campaign=" + sample(utmCampaign);
 	}
-	alert(newLink);
+	document.getElementById("output").value = newLink;
 }
 
 function error(message) {
-	alert(message);
+	document.getElementById("output").value = message;
 }
+
 
 function sample(array) {
 	return array[Math.floor(Math.random() * array.length)];
 }
 
-bookmarklettojs()
+bookmarklettojs();
