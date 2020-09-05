@@ -20,7 +20,7 @@ function htmltojs() {
 	var qargs = {
 		"uridecode":false,
 		"fakeutm":false
-	}
+	};
 	var link = document.getElementById("textbox").value;
 	var options = document.getElementsByName("mode");
 	for (var i = 0; i < options.length; i++) {
@@ -30,15 +30,15 @@ function htmltojs() {
 		}
 	}
 	var checks = Object.keys(qargs);
-	for (var i = 0; i < checks.length; i++) {
-		qargs[checks[i]] = document.getElementById(checks[i]).checked
+	for (i = 0; i < checks.length; i++) {
+		qargs[checks[i]] = document.getElementById(checks[i]).checked;
 	}
-	process(link, mode, qargs)
+	process(link, mode, qargs);
 }
 
 function process(link, mode, qargs) {
 	try {
-		if (qargs["uridecode"]) {link = decodeURIComponent(link)}
+		if (qargs.uridecode) { link = decodeURIComponent(link); }
 		switch (mode) {
 		case "smart":
 			try { knownLinkTest = link.match(/https?:\/\/(?:(?:www\.ebay)|(?:www\.amazon)|(?:youtu)|(?:www\.google))\./)[0]; }
@@ -126,7 +126,7 @@ function deAmp(link) {
 }
 
 function output(newLink, qargs) {
-	if (qargs["fakeutm"]) {
+	if (qargs.fakeutm) {
 		newLink = newLink + "?utm_source=" + sample(utmSource) + "&utm_medium=" + sample(utmMedium) + "&utm_campaign=" + sample(utmCampaign);
 	}
 	document.getElementById("output").value = newLink;
