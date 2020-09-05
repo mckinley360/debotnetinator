@@ -112,11 +112,11 @@ function output(newLink, qargs) {
 	if (qargs.fakeutm) {
 		newLink = newLink + "?utm_source=" + sample(utmSource) + "&utm_medium=" + sample(utmMedium) + "&utm_campaign=" + sample(utmCampaign);
 	}
-	document.getElementById("output").value = newLink;
+	alert(newLink);
 }
 
 function error(message) {
-	document.getElementById("output").value = message;
+	alert(message);
 }
 
 
