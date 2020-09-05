@@ -16,20 +16,30 @@ window.onload = function () {
 var id = {}, knownLinkTest = {}, decoded = {}, mode = {}, garbage = {};
 var utmSource = ['share', 'google', 'blog', 'Twitter', 'facebook', ], utmMedium = ['organic', 'cpc', 'email', 'social', 'banner', 'cpa', 'android_app', 'ios_app'], utmCampaign = ['events', 'share', 'Google'];
 
-function process() {
+function htmltojs() {
+  var qargs = {
+    "uridecode":false,
+    "fakeutm":false
+  }
+  var link = document.getElementById("textbox").value;
+	var options = document.getElementsByName("mode");
+	for (var i = 0; i < options.length; i++) {
+		if (options[i].checked) {
+			mode = options[i].id;
+			break;
+		}
+	}
+  var checks = Object.keys(qargs);
+	for (var i = 0; i < checks.length; i++) {
+    qargs[checks[i]] = document.getElementById(checks[i]).checked
+	}
+  process(link, mode, qargs)
+}
+
+function process(link, mode, qargs) {
 	try {
-		var link = document.getElementById("textbox").value;
-		var options = document.getElementsByName("mode");
-		for (var i = 0; i < options.length; i++) {
-			if (options[i].checked) {
-				mode = options[i].id;
-				break;
-			}
-		}
-		if (document.getElementById("uridecode").checked) {
-			link = decodeURIComponent(link);
-		}
-		switch (mode) {
+    if (qargs["uridecode"]) {link = decodeURIComponent(link)}
+    switch (mode) {
 		case "smart":
 			try { knownLinkTest = link.match(/https?:\/\/(?:(?:www\.ebay)|(?:www\.amazon)|(?:youtu)|(?:www\.google))\./)[0]; }
 			catch (e) { throw("This domain does not have any special optimizations available."); }
@@ -38,57 +48,57 @@ function process() {
 			case "https://www.ebay.":
 				try { id = link.match(/\d{12}/)[0]; }
 				catch (e) { throw("Could not find item ID. Is this link for an eBay item?"); }
-				output(knownLinkTest + tld + "/itm/" + id);
+				output(knownLinkTest + tld + "/itm/" + id, qargs);
 				break;
 			case "https://www.amazon.":
 				try { id = link.match(/\/(?:(?:dp)|(?:product))\/\S{10}/)[0].slice(-10); }
 				catch (e) { throw("Could not find item ID. Is this link for an Amazon item?"); }
-				output(knownLinkTest + tld + "/dp/" + id);
+				output(knownLinkTest + tld + "/dp/" + id, qargs);
 				break;
 			case "https://youtu.":
-				output("https://www.youtube.com/watch?v=" + hardTrim(link).slice(-11));
+				output("https://www.youtube.com/watch?v=" + hardTrim(link).slice(-11), qargs);
 				break;
 			case "https://www.google.":
 				if (link.match(/\/amp\/s\//)) {
 					garbage = link.match(/https:\/\/www\.google\.[\w\.]+\/amp\/s\//)[0];
-					output(deAmp(decodeURIComponent("http://" + link.slice(garbage.length))));
+					output(deAmp(decodeURIComponent("http://" + link.slice(garbage.length))), qargs);
 				} else if (link.match(/\/url/)) {
-					output(extract(decodeURIComponent(link)));
+					output(extract(decodeURIComponent(link)), qargs);
 				} else { error("Smart Mode supports /amp and /url directories for Google only."); }
 				break;
 			}
 		break;
 
 		case "trim":
-			output(trim(link));
+			output(trim(link), qargs);
 			break;
 
 		case "hardtrim":
-			output(hardTrim(link));
+			output(hardTrim(link), qargs);
 			break;
 
 		case "extract":
-			output(extract(link));
+			output(extract(link), qargs);
 			break;
 
 		case "expand":
 			var urlex = "https://urlex.org/" + link;
 			window.open(urlex, "_blank").focus();
-			output(urlex);
+			output(urlex, qargs);
 			break;
 
 		case "deamp":
-			output(deAmp(link));
+			output(deAmp(link), qargs);
 			break;
 
 		case "uridecodeonly":
-			output(decodeURIComponent(link));
+			output(decodeURIComponent(link), qargs);
 			break;
 
 		case "base64decode":
 			try { decoded = atob(link); }
 			catch (e) { throw("Could not Base64 decode input."); }
-			output(decoded);
+			output(decoded, qargs);
 		}
 	} catch (e) { error("Error: " + e); }
 }
@@ -115,8 +125,8 @@ function deAmp(link) {
 	return link.replace(/\/(platform\/)?amp\/?/,"/");
 }
 
-function output(newLink) {
-	if (document.getElementById("fakeutm").checked) {
+function output(newLink, qargs) {
+	if (qargs["fakeutm"]) {
 		newLink = newLink + "?utm_source=" + sample(utmSource) + "&utm_medium=" + sample(utmMedium) + "&utm_campaign=" + sample(utmCampaign);
 	}
 	document.getElementById("output").value = newLink;
@@ -125,6 +135,7 @@ function output(newLink) {
 function error(message) {
 	document.getElementById("output").value = message;
 }
+
 
 function sample(array) {
 	return array[Math.floor(Math.random() * array.length)];
