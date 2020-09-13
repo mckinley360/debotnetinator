@@ -104,7 +104,7 @@ function process(link, mode, qargs) {
 }
 
 function extract(link) {
-	try { garbage = link.match(/https?:\/\/.+(?=https?)/)[0]; }
+	try { garbage = link.match(/https?:\/\/.+?(?=https?)/)[0]; }
 	catch (e) { throw("Could not extract link"); }
 	return trim(link.slice(garbage.length));
 }
